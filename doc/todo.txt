@@ -1,0 +1,393 @@
+spring download:
+http://maven.springframework.org/release/org/springframework/spring/
+
+mybatis download:
+https://github.com/mybatis/
+
+mybatis eclipse插件
+
+java & android report:
+http://www.oschina.net/project/tag/133/report,chart?lang=19&os=0&sort=view
+
+开源：
+http://www.oschina.net/
+
+jasperReport:
+http://community.jaspersoft.com/
+http://blog.csdn.net/kabini/article/details/1600073
+http://www.jasperforge.org/update
+
+spring ajax:
+处理ajax的请求更是方便 只需一个注解@ResponseBody ，然后直接返回响应文本即可 
+
+附上一段代码 
+Java代码
+@RequestMapping(value="/whitelists")   
+public String index(ModelMap map){   
+    Account account = accountManager.getByDigitId(SecurityContextHolder.get().getDigitId()) ;   
+    List<Group> groupList = groupManager.findAllGroup(account.getId()) ;   
+    map.put("account", account);   
+    map.put("groupList", groupList);   
+    return "/group/group-index" ;   
+}   
+       //@ResponseBody ajax响应     
+@RequestMapping(value="/whitelist/{whiteListId}/del")   
+@ResponseBody     
+public String delete(@PathVariable Integer whiteListId){   
+    whiteListManager.deleteWhiteList(whiteListId) ;   
+    return "success" ;   
+}
+
+
+spring mvc mybatis:
+http://blog.csdn.net/zhshulin/article/details/37956105
+
+spring mvc 文章：
+http://jinnianshilongnian.iteye.com/blog/1594806
+http://www.admin10000.com/document/6436.html
+
+urls：
+http://localhost:9999/spring_test1/user/helloword
+
+异常 ->ok
+http://blog.csdn.net/king87130/article/details/8011843
+异常：ThrowsAdvice
+日志：MethodInterceptor
+
+
+验证 ->ok
+如何转换为客户端验证？
+jsr-303:
+http://www.ibm.com/developerworks/cn/java/j-lo-jsr303/
+
+
+视图展现，标签 ->ok
+
+ajax ->ok
+
+拦截器 ->ok
+
+任务调度
+
+spring 事务：
+
+webservice
+
+与mybatis结合
+http://blog.csdn.net/gebitan505/article/details/44455235
+http://www.cnblogs.com/xdp-gacl/p/4271627.html
+java -jar mybatis-generator-core-1.3.2.jar -configfile mybatis-generator-config.xml -overwrite
+java -jar mybatis-generator-core-1.3.5.jar -configfile mybatis-generator-config.xml
+ -overwrite 
+
+路由 ->ok
+
+文件处理（上传与下载） ->ok
+
+缓存
+->ehcache
+http://hanqunfeng.iteye.com/blog/605123
+
+测试如何与junit配合
+->OK
+
+
+国际化 ->ok
+
+404与505等错误格式化 ->ok
+
+日志处理
+1、mvc:interceptors
+2、
+
+
+SpringMVC访问静态资源 ->ok
+
+pom.xml(maven)->ok
+
+spring ioc与aop区别。
+spring ioc：xml config
+IOC的基本概念是：不创建对象，但是描述创建它们的方式。在代码中不直接与对象和服务连接，但在配置文件中描述哪一个组件需要哪一项服务。Spring容器负责将这些联系在一起。也就是说，Spring的IOC负责管理各种对象的创建、清除以及它们之间的联系。AOP是指面向切面编程（也叫面向方面），可以通过预编译方式和运行期动态代理实现在不修改源代码的情况下给程序动态统一添加功能的一种技术。一般用于事务管理、权限控制、错误处理等各种业务中共同性的东西。
+
+
+spring jstl：->ok
+
+spring 注解：
+@ModelAttribute : http://hbiao68.iteye.com/blog/1948380
+@ModelAttribute：如果如果标识参数，则参数可以用来接收request,也可以用来输出数据。
+
+@RequestBody(todo:)
+@ResponseBody(json)
+
+maven:(how to build project with maven but not ant?)
+http://maven.apache.org/download.cgi
+spring mvc pom.xml:
+http://blog.csdn.net/mr_tank_/article/details/12159297
+
+spring mvc mybatis pom.xml:
+http://www.csdn123.com/html/topnews201408/78/15778.htm
+
+1\maven 自动下载关联jar(pom.xml)
+2\maven build war.(myeclipse export war)
+
+@controller,@service,@component，@Repository区别？
+
+	@Service用于标注业务层组件（我们通常定义的service层就用这个）
+	
+	@Controller用于标注控制层组件（如struts中的action）
+	
+	@Repository用于标注数据访问组件，即DAO组件
+	
+	@Component泛指组件，当组件不好归类的时候，我们可以使用这个注解进行标注。
+http://www.cnblogs.com/xdp-gacl/p/3495887.html
+
+@Autowired，@resource区别?
+	@Resource的作用相当于@Autowired，只不过@Autowired按byType自动注入，而@Resource默认按 byName自动注入罢了。
+	@Resource有两个属性是比较重要的，分是name和type，
+	Spring将@Resource注解的name属性解析为bean的名字，而type属性则解析为bean的类型。所以如果使用name属性，则使用byName的自动注入策略，
+	而使用type属性时则使用byType自动注入策略。如果既不指定name也不指定type属性，这时将通过反射机制使用byName自动注入策略。
+	
+	1、 @Autowired与@Resource都可以用来装配bean.都可以写在字段上,或写在setter方法上。
+
+	2、 @Autowired默认按类型装配（这个注解是属业spring的），默认情况下必须要求依赖对象必须存在，如果要允许null值，可以设置它的required属性为false，
+	如：@Autowired(required=false)，如果我们想使用名称装配可以结合@Qualifier注解进行使用，如@Autowired() @Qualifier("baseDao")
+
+
+spring mvc + hibernate:
+http://www.mamicode.com/info-detail-467301.html
+
+maven groupid 查询：
+http://mvnrepository.com/
+
+mybatis　延迟加载：
+http://blog.csdn.net/xl890727/article/details/49837051
+
+mybatis 一对多与多对一
+
+mybatis 教程：
+http://blog.csdn.net/techbirds_bao/article/details/9233599/
+
+mybatis物理查询建议采用拦截器，传入参数建议采用@Param标记形式的的map：
+List<SysDictionaryType> selectPageList(@Param("dict") SysDictionaryType record,@Param("page") PageInfo page);
+
+
+spring mvc webservice:
+
+spring mvc 404,505处理：
+
+http://localhost:9999/spring_test1/user/test5?name=tiger&age=34
+
+
+2016-10-19：
+1、linux下配置java环境：
+	http://www.cnblogs.com/samcn/archive/2011/03/16/1986248.html
+
+export JAVA_HOME=/usr/java/jdk1.6.0_45
+
+export PATH=$JAVA_HOME/bin:$PATH
+
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+
+echo $JAVA_HOME
+
+vi /etc/profile
+
+tar -zxvf apache-tomcat-7.0.72.tar.gz
+
+主界面信息
+http://www.123121.com:9999/sale_admin/common/main/index.do
+
+1、整理表结构
+2、
+
+盘点流程：门店制定盘点方案->门店方案提交审核->总部审核->门店选择盘点方案制作盘点录入单（盘点保存后可以查看盘点差异）->门店提交盘点录入单->总部审核通过->系统自动修改库存数量->完成盘点
+
+盘点流程（修订）：制定盘点方案->选择盘点方案开始盘点（制作盘点录入单）->生成盘点差异->确认盘点差异->完成盘点
+
+百安回复20161020：
+是这样的，盘点的时候库存显示0库存的商品是不需要盘点的，如果在盘点的时候盘到0库存的，那么0库存的商品就会少一个，待盘点数量应该不变（待盘点数量加一个 tiger.guo 20161020）。
+
+盘点流程为：盘点员制定盘点方案>审核员审核盘点方案>审核通过后生成一个盘点号>盘点员输入盘点号开始盘点>盘点完成后生成差异表>审核员确认差异表>完成盘点
+
+限购是一个人限买几件，限量是这种商品只有一部分做促销
+
+
+再买就抵消：
+
+比如一个商品A之前购买单价是20元，现在单价是50元，现在是不是还需要付款30元？
+
+Tiger.guo（郭平）  2016/10/20 17:02:39
+比如一个商品A之前购买单价是50元，现在单价是20元，现在是不是不需要付款？
+17:03:39
+Tiger.guo（郭平）  2016/10/20 17:03:39
+比如一个商品A之前购买单价是50元，买个1件，现在单价是20元买了3件，是不是只需要付款10元？
+
+Tiger.guo（郭平）  2016/10/20 17:05:26
+比如一个商品A之前购买单价是50元，买个1件，现在单价是20元买了1件，是不是不用付款？过了一天，再过来购买的时候，再买1件，单价也是20元，是不是也不用付款，因为之前还有30元没有抵消掉？
+
+2016-11-01:
+mybatis产生器：
+https://github.com/mybatis/generator/releases
+
+hibernate validator 驗證：
+org.hibernate.validator.constraints
+http://blog.csdn.net/mayunyun1987100/article/details/41245697
+http://blog.csdn.net/htofly/article/details/8668968
+
+hibernate validate如何使用，比如更新和新增的时候，验证规则不一样。
+
+easyui document: 
+http://www.jeasyui.com/documentation/index.php
+
+1树形导航
+2、数据保存
+权限处理
+登录页面
+
+2016-11-08：
+设计模式文章：
+http://www.cnblogs.com/maowang1991/archive/2013/04/15/3023236.html
+
+spring MVC统一异常处理：
+http://blog.csdn.net/ufo2910628/article/details/40399539
+
+spring mvc mybatis easyui 例子：
+http://www.iteye.com/topic/1081739
+
+统一异常梳处理参考：
+http://www.tuicool.com/articles/aeA7Vv
+
+easy ui datagrid:
+http://www.jeasyui.com/demo/main/index.php?plugin=DataGrid&theme=default&dir=ltr&pitem=#
+
+自动计算north的高度
+
+<c:out value="${sysUser.id}"></c:out>|<c:out value="${sysUser.userId}"></c:out>
+
+1、列表页面关联字段显示与排序问题。->ok
+2、自动代码生成器。
+3、登录，与权限处理。（生成权限标签，控制按钮权限，菜单权限，后台URL访问权限。）
+4、静态总体菜单生成。
+
+spring mvc 同时支持jsp与freemarker的一种方案：
+http://blog.csdn.net/btlas/article/details/52424560
+
+freemarker例子：
+http://www.cnblogs.com/best/archive/2016/08/01/5681511.html
+
+freemarker生成文件：
+
+
+Java runtime运行日志：
+-Dcatalina.base=D:\server\apache-tomcat-6.0.18 -Dcatalina.home=D:\server\apache-tomcat-6.0.18 -Dwtp.deploy=D:\server\apache-tomcat-6.0.18\webapps -Djava.endorsed.dirs=D:\server\apache-tomcat-6.0.18\endorsed 
+-Xms256M -Xmx512M -XX:PermSize=64M -XX:MaxPermSize=128M 
+-Djava.library.path="D:\Program Files (x86)\Java\jdk1.6.0_14\bin;D:\server\apache-tomcat-6.0.18\bin"
+
+freemarker List：
+http://blog.csdn.net/cheung1021/article/details/6146239
+http://zhuyuehua.iteye.com/blog/1975251
+
+freemarker null处理：
+<#if metaCol.columnLength??>${metaCol.columnLength}<#else>0</#if>
+${metaCol.columnLength!0}
+metaCol.columnLength?default(0)
+
+freemarker assign:
+<#assign mode_ari = metaCol_index % 3 />
+		${mode_ari}
+
+freemarker 取模:		
+<#if (metaCol_index % 3) == 0>
+			${metaCol_index}
+		</#if>
+
+是否为最后一个元素		
+<#if (metaCol_has_next)>, </#if>
+
+行数
+${metaTbl.colList?size}
+
+2016-11-21:
+表t_drp_sheet_detail有两个外键。 ->ok
+SysOperationLog text类型  ->ok
+@Length(max=${metaCol.columnLength!0}) 4000变成了4,000 ->ok
+spring mvc 权限控制
+
+@ModelAttribute("user1")  
+public User addUser(User user) {  
+    return new User(520,"I love U");  
+}  
+
+被@ModelAttribute注释的方法会在此controller每个方法执行前被执行
+
+
+spring mvc 登录权限控制
+spring mvc 日志记录
+
+1、dao-mapper的列中增加注释
+
+com.fasterxml.jackson.databind.deser.BeanDeserializerFactory
+
+2016-11-22:
+Cotroller新增与编辑的保存分开 ->ok
+
+Mapper的新增与编辑create与update字段的处理  ->ok
+
+日期字段的保存controller,创建与更新日期格式时分秒处理  ->ok
+
+创建人与更新人controller与mapper中的处理  ->ok
+
+查询条件中带外键下拉框处理 ->ok
+
+controller中权限的控制，页面中按钮权限的控制  ->ok
+
+权限拦截器的控制
+
+会话拦截器的控制
+
+会话与权限拦截器对ajax请求的支持
+
+左侧导航先静态后自动配置 ->ok
+
+登录，注销，修改密码，管理员改密码处理
+
+权限表设计,方法字段有多个方法时，用逗号分开。
+
+freemarker输出：
+http://blog.csdn.net/achilles12345/article/details/41820507
+比如我们显示img标签，就是如此：${'<img src="xxxxxxx"/>'?html}，这样最终在页面上展示的内容就是：<img src="xxxxxxx"/>，而不会被浏览器解析。
+${r'${obj.name}'}，这样最终显示的结果就是：${obj.name}，而不会被freemarker解析。这里要注意，前边那个标红的“r”字符是关键点。
+
+自采商品申请可能需要添加新表。
+
+查询页面如何分两行或者多行显示，尽可能的多显示内容。
+
+
+mysql> show variables like '%timeout%';
++----------------------------+----------+
+| Variable_name              | Value    |
++----------------------------+----------+
+| connect_timeout            | 10       |
+| delayed_insert_timeout     | 300      |
+| innodb_lock_wait_timeout   | 50       |
+| innodb_rollback_on_timeout | OFF      |
+| interactive_timeout        | 30       |
+| lock_wait_timeout          | 31536000 |
+| net_read_timeout           | 30       |
+| net_write_timeout          | 60       |
+| slave_net_timeout          | 3600     |
+| wait_timeout               | 30       |
++----------------------------+----------+
+10 rows in set (0.00 sec)
+
+
+mysql> set global interactive_timeout=28800; 
+
+set global interactive_timeout=2073600; 
+
+2073600 = 365*3600;(365天)
+
+
+
+
+
