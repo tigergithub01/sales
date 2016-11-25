@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties>
+		<property name="dialect" value="MYSQL" />
+	</properties>
+	<settings>
+		<setting name="logImpl" value="STDOUT_LOGGING" />
+		<!--  
+			<setting name="logImpl" value="LOG4J" />
+		-->
+	</settings>
+	<!-- <typeAliases>
+		<typeAlias alias="sysDictionaryValue"
+			type="test.spring_test1.model.SysDictionaryValue" />
+	</typeAliases> -->
+	
+	<plugins>
+		<plugin interceptor="com.sales.util.pager.helper.PageInterceptor">
+			<property name="dialect" value="mysql" />
+            <property name="pageSqlId" value=".*selectList.*" />
+		</plugin>
+	</plugins>
+	<!-- <mappers>
+		<mapper
+			resource="test/spring_test1/config/mybatis/mapper/SysDictionaryValueMapper.xml" />	
+	</mappers> -->
+
+	
+
+</configuration>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+                        http://www.springframework.org/schema/context    
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd    
+                        http://www.springframework.org/schema/mvc    
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+
+	<context:component-scan base-package="com.sales.controller" />
+
+	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->
+	<!-- <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"> 
+		<property name="supportedMediaTypes"> <list> <value>text/html;charset=UTF-8</value> 
+		</list> </property> </bean> -->
+
+	<mvc:annotation-driven >
+		<!-- 转换为json后相差8小时的处理 -->
+		<mvc:message-converters>
+            <bean
+                class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                        <!-- 处理responseBody 里面日期类型 -->
+                        <property name="dateFormat">
+                            <bean class="java.text.SimpleDateFormat">
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+                            </bean>
+                        </property>
+                        <!-- 时区指定 -->
+                        <property name="timeZone" value="GMT+8" />
+                        <!-- 为null字段时不显示 -->
+                        <property name="serializationInclusion">
+                            <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
+	</mvc:annotation-driven>
+
+
+	<!-- spring mvc对静态资源的访问 -->
+	<mvc:default-servlet-handler />
+
+	<!-- 如果静态资源放在WEB-INF目录下时，可以用mvc:resources进行配置 -->
+	<!-- <mvc:resources location="/images/" mapping="/images/**"></mvc:resources> 
+		<mvc:resources location="/js/" mapping="/js/**"></mvc:resources> <mvc:resources 
+		location="/css/" mapping="/css/**"></mvc:resources> -->
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		id="internalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	
+	<!-- freemarker的配置 -->  
+    <!-- <bean id="freemarkerConfigurer"  
+        class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">  
+        <property name="templateLoaderPath" value="/WEB-INF/view/" />  
+        <property name="defaultEncoding" value="UTF-8" />  
+        <property name="freemarkerSettings">  
+            <props>  
+                <prop key="template_update_delay">10</prop>  
+                <prop key="locale">UTF-8</prop>  
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>  
+                <prop key="date_format">yyyy-MM-dd</prop>  
+                <prop key="number_format">#.##</prop>  
+            </props>  
+        </property>  
+    </bean>  
+    
+	
+    <bean id="freeMarkerViewResolver"  
+        class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">  
+        <property name="viewClass"  
+            value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />  
+        <property name="suffix" value=".ftl" />  
+        <property name="contentType" value="text/html;charset=UTF-8" />  
+        <property name="exposeRequestAttributes" value="true" />  
+        <property name="exposeSessionAttributes" value="true" />  
+        <property name="exposeSpringMacroHelpers" value="true" />  
+        <property name="order" value="0"/>
+    </bean>   -->
+
+	<!-- file upload -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="102400000"></property>
+	</bean>
+
+	<!-- interceptor setting -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**" />
+			<bean class="com.sales.util.interceptor.AuthInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!-- configure the locale resource -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="locale"></property>
+	</bean>
+
+	<!-- <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"> 
+		<property name="basename" value="classpath:messages" /> <property name="fileEncodings" 
+		value="utf-8" /> <property name="cacheSeconds" value="120" /> </bean> 以下 
+		validator ConversionService 在使用 mvc:annotation-driven 会 自动注册 <bean id="validator" 
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"> 
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" 
+		/> 如果不加默认到 使用classpath下的 ValidationMessages.properties <property name="validationMessageSource" 
+		ref="messageSource" /> </bean> <bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer"> 
+		<property name="conversionService" ref="conversionService" /> <property name="validator" 
+		ref="validator" /> </bean> -->
+
+	<!-- configure SimpleMappingExceptionResolver -->
+	<!-- <bean
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		定义默认的异常处理页面，当该异常类型的注册时使用
+		<property name="defaultErrorView" value="/error/error"></property>
+		默认HTTP状态码     
+         <property name="defaultStatusCode" value="500"></property>   
+		定义需要特殊处理的异常，用类名或完全路径名作为key，异常也页名作为值
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Throwable">error</prop>
+			</props>
+		</property>
+		<property name="statusCodes">     
+             <props>     
+                 <prop key="500">/error/500</prop>     
+                 <prop key="404">/error/404</prop>     
+             </props>     
+         </property>
+	</bean> -->
+	
+	<!-- why not works -->
+	<bean id="exceptionHandler" class="com.sales.util.exception.ExceptionHandler"></bean>
+</beans>  

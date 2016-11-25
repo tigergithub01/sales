@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+    xmlns:jaxws="http://cxf.apache.org/jaxws"  
+    xmlns:jaxrs="http://cxf.apache.org/jaxrs"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                       http://www.springframework.org/schema/beans/spring-beans.xsd  
+                       http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd  
+                       http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />  
+    <!-- <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />   -->
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" /> 
+
+	<!-- http://localhost:9999/spring_test1/services/userService?wsdl -->  
+    <!-- <jaxrs:server id="userService" serviceClass="test.spring_test1.service.UserServiceImpl" address="/usr"></jaxrs:server> -->  
+    
+    <!-- 如果spring的bean已经托管，那么jaxws:endpoint的id不能和spring的bean同名，否则会有异常报出！ -->
+   	<jaxws:endpoint id="usrService" implementor="com.sales.service.system.UserServiceImpl" address="/usr"></jaxws:endpoint>
+   	
+   <!-- <jaxws:endpoint id="usrService" implementor="#userService" address="/usr"></jaxws:endpoint> -->
+  
+</beans>
